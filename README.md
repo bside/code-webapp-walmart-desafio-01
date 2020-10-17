@@ -1,40 +1,23 @@
-# code-walmart-front
+# code-webapp-walmart-desafio-01
 
 ### Usage
 
 Install dependencies
 
 ```
-$ yarn
+$ npm i
 ```
 
 Run development server
 
 ```
-$ yarn dev
+$ npm run dev
 ```
 
 ### Building
 
 ```
-$ yarn build
+$ npm run build
 ```
 
 Will create a `dist` directory containing your compiled code.
-
-Depending on your needs, you might want to do more optimization to the production build.
-
-## Webpack Bundle Analyzer
-
-Run in development
-
-```
-$ yarn dev:bundleanalyzer
-```
-
-Run on the production oprimized build
-
-```
-$ yarn build:bundleanalyzer
-```
-
