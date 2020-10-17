@@ -1,7 +1,15 @@
 {
   "name": "code-webapp-walmart-desafio-01",
   "version": "1.0.0",
+  "repository": "github:bside/code-webapp-walmart-desafio-01",
+  "license": "UNLICENSED",
+  "private": true,
   "main": "index.js",
+  "author": {
+    "name": "Álvaro González",
+    "email": "alvaro@code.cl",
+    "url": "https://github.com/bside/code-webapp-walmart-desafio-01"
+  },
   "scripts": {
     "dev": "webpack-dev-server --env.env=dev",
     "prebuild": "rimraf dist",
