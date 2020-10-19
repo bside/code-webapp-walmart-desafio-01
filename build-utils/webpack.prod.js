@@ -2,6 +2,7 @@ const commonPaths = require('./common-paths');
 
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const port = process.env.PORT || 3000;
 
@@ -41,6 +42,9 @@ const config = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'styles/[name].[hash].css',
+    }),
+    new Dotenv({
+      systemvars: true,
     }),
   ],
   devServer: {

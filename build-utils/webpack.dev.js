@@ -1,6 +1,7 @@
 const commonPaths = require('./common-paths');
 
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 const port = process.env.PORT || 3000;
 
@@ -38,7 +39,12 @@ const config = {
       },
     ],
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new Dotenv({
+      systemvars: true,
+    }),
+  ],
   devServer: {
     host: 'localhost',
     port: port,

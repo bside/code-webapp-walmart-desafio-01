@@ -23,7 +23,7 @@ class Layout extends React.Component {
   searchTimeout = null;
   createCancelToken = () => axios.CancelToken.source();
   cancelToken = this.createCancelToken();
-  apiEndpoint = process.env.API_SEARCH_ENDPOINT || 'http://localhost:3001/products';
+  apiEndpoint = process.env.API_SEARCH_ENDPOINT || 'http://localhost:3001';
 
 
   getSearchResults = (term) => {
@@ -45,7 +45,7 @@ class Layout extends React.Component {
         custom: term,
       },
     };
-    const searchEndpoint = `${this.apiEndpoint}?filter=${JSON.stringify(filter)}`;
+    const searchEndpoint = `${this.apiEndpoint}/products?filter=${JSON.stringify(filter)}`;
 
     let results = [];
     this.cancelToken = this.createCancelToken();
