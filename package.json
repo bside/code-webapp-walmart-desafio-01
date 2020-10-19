@@ -14,7 +14,7 @@
     "url": "https://github.com/bside/code-webapp-walmart-desafio-01"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode production --env.env=prod",
+    "start": "node server.js",
     "start:watch": "webpack-dev-server --env.env=dev",
     "prebuild": "rimraf dist",
     "build": "cross-env NODE_ENV=production webpack -p --env.env=prod",
