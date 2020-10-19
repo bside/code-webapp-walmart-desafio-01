@@ -3,6 +3,8 @@ const commonPaths = require('./common-paths');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const port = process.env.PORT || 3000;
+
 const config = {
   mode: 'production',
   entry: {
@@ -41,6 +43,11 @@ const config = {
       filename: 'styles/[name].[hash].css',
     }),
   ],
+  devServer: {
+    host: 'localhost',
+    port: port,
+    historyApiFallback: true,
+  },
 };
 
 module.exports = config;
