@@ -13,6 +13,13 @@ const { Row, Column } = Grid;
 
 class ProductList extends React.PureComponent {
   renderProducts(context) {
+    if (!context.searchTerm) {
+      return (
+        <div>
+          <p>Ingresa un término de búsqueda en la barra superior.</p>
+        </div>
+      );
+    }
     if (context.searched && !context.searchResults.length) {
       return (
         <div>

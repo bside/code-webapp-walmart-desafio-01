@@ -12,53 +12,63 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import { Provider } from '../context/Search';
-
-const SearchContext = React.createContext({holi:true});
+import axios from 'axios';
 
 class Layout extends React.Component {
-  db = [
-    {
-      "id": 1,
-      "brand": "ooy eqrceli",
-      "description": "rlñlw brhrka",
-      "image": "www.lider.cl/catalogo/images/whiteLineIcon.svg",
-      "price": 498724
-    },
-    {
-      "id": 2,
-      "brand": "dsaasd",
-      "description": "zlrwax bñyrh",
-      "image": "www.lider.cl/catalogo/images/babyIcon.svg",
-      "price": 130173
-    },
-    {
-      "id": 171,
-      "brand": "weñxoab",
-      "description": "hqhoy qacirk",
-      "image": "www.lider.cl/catalogo/images/homeIcon.svg",
-      "price": 171740
-    }
-  ];
-
   state = {
     searched: false,
     searchResults: [],
+    searchTerm: null,
   };
+  searchTimeout = null;
+  createCancelToken = () => axios.CancelToken.source();
+  cancelToken = this.createCancelToken();
+  apiEndpoint = process.env.API_SEARCH_ENDPOINT || 'http://localhost:3001/products';
+
 
   getSearchResults = (term) => {
-    // @todo: get from backend api
-    return this.db.filter(result => {
-      return result.description.includes(term);
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
+      this.cancelToken.cancel();
+    }
+    if (!term) {
+      this.setState({
+        searched: false,
+        searchTerm: null
+      });
+      return false;
+    }
+
+    const filter = {
+      limit: 50,
+      where: {
+        custom: term,
+      },
+    };
+    const searchEndpoint = `${this.apiEndpoint}?filter=${JSON.stringify(filter)}`;
+
+    let results = [];
+    this.cancelToken = this.createCancelToken();
+    results = axios.get(searchEndpoint, {
+      cancelToken: this.cancelToken.token
+    }).then(products => {
+      this.setState({
+        searched: true,
+        searchResults: products.data
+      });
     });
+    return results;
   }
 
   handleSearch = () => {
-    // @todo: implement debounce
-    const searchValue = this.searchInput.inputRef.current.value;
-    this.setState({
-      searched: true,
-      searchResults: this.getSearchResults(searchValue),
-    });
+    const searchTerm = this.searchInput.inputRef.current.value;
+    this.searchTimeout = setTimeout(() => {
+      this.setState({
+        searched: true,
+        searchTerm,
+      });
+      this.getSearchResults(searchTerm);
+    }, 600)
   }
 
   render() {
@@ -76,7 +86,7 @@ class Layout extends React.Component {
                 icon={<Icon name='search' inverted circular link onClick={this.handleSearch} />}
                 placeholder='¿QUÉ PRODUCTO BUSCAS HOY?'
                 ref={ref => this.searchInput = ref}
-                onKeyDown={this.handleSearch}
+                onKeyUp={this.handleSearch}
                 />
             </Menu.Item>
           </Container>

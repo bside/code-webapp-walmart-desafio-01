@@ -1,21 +1,27 @@
 {
   "name": "code-webapp-walmart-desafio-01",
   "version": "1.0.0",
+  "main": "index.js",
+  "engines": {
+    "node": ">=10.16"
+  },
   "repository": "github:bside/code-webapp-walmart-desafio-01",
   "license": "UNLICENSED",
   "private": true,
-  "main": "index.js",
   "author": {
     "name": "Álvaro González",
     "email": "alvaro@code.cl",
     "url": "https://github.com/bside/code-webapp-walmart-desafio-01"
   },
   "scripts": {
-    "dev": "webpack-dev-server --env.env=dev",
+    "start:watch": "webpack-dev-server --env.env=dev",
     "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production webpack -p --env.env=prod"
+    "build": "cross-env NODE_ENV=production webpack -p --env.env=prod",
+    "docker:build": "docker build --file Dockerfile.webapp -t code-webapp-walmart-desafio-01 .",
+    "docker:run": "docker run -p 3000:80 -d code-webapp-walmart-desafio-01"
   },
   "dependencies": {
+    "axios": "^0.20.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-number-format": "^4.4.1",

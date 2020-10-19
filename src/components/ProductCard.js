@@ -28,8 +28,25 @@ class ProductCard extends React.PureComponent {
               displayType={'text'}
             />
           </Label>
-          <Label as='a' color='red' tag>50%</Label>
+          {
+            this.props.data.discountPercentage &&
+            <Label as='a' color='red' tag>{this.props.data.discountPercentage}%</Label>
+          }
         </Card.Content>
+        {
+          this.props.data.discountPercentage &&
+          <Card.Content>
+            <del>
+              <NumberFormat
+                value={this.props.data.originalPrice}
+                prefix={'$'}
+                thousandSeparator='.'
+                decimalSeparator=','
+                displayType={'text'}
+              />
+            </del>
+          </Card.Content>
+        }
         <Card.Content>
           <Button primary animated='fade' size='big' style={{ width: '100%' }}>
             <Button.Content visible>Agregar</Button.Content>
